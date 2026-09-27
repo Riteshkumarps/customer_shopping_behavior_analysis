@@ -824,3 +824,7 @@ The final outcome is a reusable analytics workflow that combines technical data 
 
 - 🔗 GitHub: [Riteshkumarps](https://github.com/Riteshkumarps/customer_shopping_behavior_analysis)
 - 💼 LinkedIn: [riteshkumarps](https://www.linkedin.com/in/riteshkumarps/)
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
