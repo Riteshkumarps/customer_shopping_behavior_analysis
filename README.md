@@ -816,12 +816,11 @@ The final outcome is a reusable analytics workflow that combines technical data 
 
 \---
 
-**## Author**
+## 👨‍💻 Author
 
-**\*\*RITESH KUMAR\*\***
+**RITESH KUMAR**
 
-**\*\*Data Analyst | Python | SQL | Power BI | Excel\*\***
+**Data Analyst | Python | SQL | Power BI | Excel**
 
-GitHub: \`\<https\://github.com/Riteshkumarps>\`
-
-LinkedIn: \`\<www\.linkedin.com/in/riteshkumarps>\`
+- 🔗 GitHub: [Riteshkumarps](https://github.com/Riteshkumarps/customer_shopping_behavior_analysis)
+- 💼 LinkedIn: [riteshkumarps](https://www.linkedin.com/in/riteshkumarps/)
