@@ -1,583 +1,827 @@
-# Customer Shopping Behaviour Analysis
+**# Customer Shopping Behaviour Analysis**
 
-## Overview
+**## Overview**
 
-**Customer Shopping Behaviour Analysis** is an end-to-end data analytics project that transforms raw customer transaction data into business insights.
+**\*\*Customer Shopping Behaviour Analysis\*\*** is an end-to-end data analytics project that transforms raw customer transaction data into business insights.
 
 The project covers the complete analytics workflow:
 
-**CSV Dataset → Python EDA & Cleaning → MySQL SQL Analysis → Power BI Dashboard → Business Report → Gamma Presentation**
+**\*\*CSV Dataset → Python EDA & Cleaning → MySQL SQL Analysis → Power BI Dashboard → Business Report → Gamma Presentation\*\***
 
-The analysis uses **3,900 customer purchase records and 18 columns** to study revenue, customer segments, product preferences, discounts, subscriptions, and shipping behaviour.
+The analysis uses **\*\*3,900 customer purchase records and 18 columns\*\*** to study revenue, customer segments, product preferences, discounts, subscriptions, and shipping behaviour.
 
----
+\---
 
-## Objectives
+**## Objectives**
 
-- Understand customer shopping behaviour
-- Explore and clean the raw dataset
-- Identify important customer and product patterns
-- Answer business questions using SQL
-- Build an interactive Power BI dashboard
-- Convert analysis into business insights and recommendations
-- Present the findings in a clear, recruiter-friendly format
+\- Understand customer shopping behaviour
 
----
+\- Explore and clean the raw dataset
 
-## Dataset
+\- Identify important customer and product patterns
 
-**File:** `customer_shopping_behavior.csv`
+\- Answer business questions using SQL
 
-### Dataset Size
+\- Build an interactive Power BI dashboard
 
-- **Rows:** 3,900
-- **Columns:** 18
-- **Missing values:** 37 in `Review Rating`
+\- Convert analysis into business insights and recommendations
 
-### Main Features
+\- Present the findings in a clear, recruiter-friendly format
 
-| Category | Features |
-|---|---|
-| Customer | Customer ID, Age, Gender, Location |
-| Purchase | Item Purchased, Category, Purchase Amount |
-| Product | Size, Color, Season, Review Rating |
-| Behaviour | Previous Purchases, Frequency of Purchases |
-| Subscription | Subscription Status |
-| Promotion | Discount Applied, Promo Code Used |
-| Delivery | Shipping Type |
-| Payment | Payment Method |
+\---
 
----
+**## Dataset**
 
-## Tools & Technologies
+**\*\*File:\*\*** \`customer_shopping_behavior.csv\`
 
-- **Python** – Data loading, EDA and data cleaning
-- **Pandas** – Data manipulation and preprocessing
-- **NumPy** – Numerical operations
-- **Matplotlib & Seaborn** – Exploratory visualization
-- **MySQL** – Business-oriented SQL analysis
-- **Power BI** – Interactive dashboard
-- **Microsoft Word** – Analytical report
-- **Gamma** – Presentation creation
-- **Jupyter Notebook** – Python analysis environment
+**### Dataset Size**
 
----
+\- **\*\*Rows:\*\*** 3,900
 
-# Project Workflow
+\- **\*\*Columns:\*\*** 18
 
-```text
+\- **\*\*Missing values:\*\*** 37 in \`Review Rating\`
+
+**### Main Features**
+
+\| Category | Features |
+
+\|---|---|
+
+\| Customer | Customer ID, Age, Gender, Location |
+
+\| Purchase | Item Purchased, Category, Purchase Amount |
+
+\| Product | Size, Color, Season, Review Rating |
+
+\| Behaviour | Previous Purchases, Frequency of Purchases |
+
+\| Subscription | Subscription Status |
+
+\| Promotion | Discount Applied, Promo Code Used |
+
+\| Delivery | Shipping Type |
+
+\| Payment | Payment Method |
+
+\---
+
+**## Tools & Technologies**
+
+\- **\*\*Python\*\*** – Data loading, EDA and data cleaning
+
+\- **\*\*Pandas\*\*** – Data manipulation and preprocessing
+
+\- **\*\*NumPy\*\*** – Numerical operations
+
+\- **\*\*Matplotlib & Seaborn\*\*** – Exploratory visualization
+
+\- **\*\*MySQL\*\*** – Business-oriented SQL analysis
+
+\- **\*\*Power BI\*\*** – Interactive dashboard
+
+\- **\*\*Microsoft Word\*\*** – Analytical report
+
+\- **\*\*Gamma\*\*** – Presentation creation
+
+\- **\*\*Jupyter Notebook\*\*** – Python analysis environment
+
+\---
+
+**# Project Workflow**
+
+\`\`\`text
+
 Raw CSV Dataset
-      ↓
+
+      ↓
+
 Python Data Loading
-      ↓
+
+      ↓
+
 EDA & Data Quality Checks
-      ↓
+
+      ↓
+
 Data Cleaning & Feature Engineering
-      ↓
+
+      ↓
+
 MySQL Database
-      ↓
+
+      ↓
+
 SQL Business Analysis
-      ↓
+
+      ↓
+
 Power BI Dashboard
-      ↓
+
+      ↓
+
 Analytical Report
-      ↓
+
+      ↓
+
 Gamma Presentation
-```
 
----
+\`\`\`
 
-# 1. Data Loading & EDA
+\---
+
+**# 1. Data Loading & EDA**
 
 The dataset was loaded into Python using Pandas.
 
-```python
+\`\`\`python
+
 import pandas as pd
+
 import numpy as np
+
 import matplotlib.pyplot as plt
+
 import seaborn as sns
 
 df = pd.read_csv("customer_shopping_behavior.csv")
 
 df.head()
+
 df.shape
+
 df.info()
+
 df.describe(include="all")
+
 df.isnull().sum()
-```
 
-### EDA activities
+\`\`\`
 
-- Checked dataset dimensions
-- Reviewed data types
-- Generated descriptive statistics
-- Checked missing values
-- Examined categorical variables
-- Investigated customer and purchase attributes
+**### EDA activities**
 
----
+\- Checked dataset dimensions
 
-# 2. Data Cleaning & Feature Engineering
+\- Reviewed data types
+
+\- Generated descriptive statistics
+
+\- Checked missing values
+
+\- Examined categorical variables
+
+\- Investigated customer and purchase attributes
+
+\---
+
+**# 2. Data Cleaning & Feature Engineering**
 
 The raw data was cleaned and prepared for further analysis.
 
-### Missing Value Treatment
+**### Missing Value Treatment**
 
-There were **37 missing Review Rating values**.
+There were **\*\*37 missing Review Rating values\*\***.
 
-Missing ratings were filled using the **median rating of the corresponding product category**.
+Missing ratings were filled using the **\*\*median rating of the corresponding product category\*\***.
 
-```python
+\`\`\`python
+
 df['Review Rating'] = (
-    df.groupby('Category')['Review Rating']
-      .transform(lambda x: x.fillna(x.median()))
-)
-```
 
-### Column Standardization
+    df.groupby('Category')['Review Rating']
+
+      .transform(lambda x: x.fillna(x.median()))
+
+)
+
+\`\`\`
+
+**### Column Standardization**
 
 Column names were converted to lowercase and spaces were replaced with underscores.
 
 Example:
 
-```text
-Purchase Amount (USD)
-        ↓
-purchase_amount
-```
+\`\`\`text
 
-### Feature Engineering
+Purchase Amount (USD)
+
+        ↓
+
+purchase_amount
+
+\`\`\`
+
+**### Feature Engineering**
 
 Two additional analytical features were created:
 
-- `age_group`
-- `purchase_amount_frequency_days`
+\- \`age_group\`
+
+\- \`purchase_amount_frequency_days\`
 
 Age was divided into four groups:
 
-- Young Adult
-- Adult
-- Middle Aged
-- Senior
+\- Young Adult
+
+\- Adult
+
+\- Middle Aged
+
+\- Senior
 
 Purchase frequency was converted into approximate day values such as:
 
-- Weekly → 7 days
-- Fortnightly / Biweekly → 14 days
-- Monthly → 30 days
-- Quarterly / Every 3 months → 90 days
-- Annually → 365 days
+\- Weekly → 7 days
 
-### Redundant Column Check
+\- Fortnightly / Biweekly → 14 days
 
-`discount_applied` and `promo_code_used` were compared for redundancy.
+\- Monthly → 30 days
 
-After the consistency check, `promo_code_used` was removed from the analysis dataset.
+\- Quarterly / Every 3 months → 90 days
 
----
+\- Annually → 365 days
 
-# 3. MySQL Integration
+**### Redundant Column Check**
+
+\`discount_applied\` and \`promo_code_used\` were compared for redundancy.
+
+After the consistency check, \`promo_code_used\` was removed from the analysis dataset.
+
+\---
+
+**# 3. MySQL Integration**
 
 The cleaned Pandas DataFrame was loaded into a MySQL database.
 
-### Database
+**### Database**
 
-```text
+\`\`\`text
+
 Database: customer_behavior
+
 Table: customer
-```
+
+\`\`\`
 
 The Python workflow uses SQLAlchemy and PyMySQL to connect to MySQL and upload the cleaned dataset.
 
-> Database credentials are intentionally not included in this README. Use environment variables or a local configuration file when reproducing the project.
+\> Database credentials are intentionally not included in this README. Use environment variables or a local configuration file when reproducing the project.
 
----
+\---
 
-# 4. SQL Business Analysis
+**# 4. SQL Business Analysis**
 
 SQL was used to answer practical business questions.
 
-### Questions analyzed
+**### Questions analyzed**
 
-1. What is the total revenue generated by male vs. female customers?
-2. Which customers used a discount but still spent above the average purchase amount?
-3. Which five products have the highest average review rating?
-4. How does average purchase amount compare between Standard and Express shipping?
-5. Which five products have the highest percentage of discounted purchases?
-6. How can customers be segmented into New, Returning, and Loyal groups based on previous purchases?
+1\. What is the total revenue generated by male vs. female customers?
 
-### SQL concepts demonstrated
+2\. Which customers used a discount but still spent above the average purchase amount?
 
-- `SELECT`
-- `WHERE`
-- `GROUP BY`
-- `ORDER BY`
-- Aggregate functions
-- `CASE`
-- Subqueries
-- `CTE`
-- `ROUND`
-- `LIMIT`
+3\. Which five products have the highest average review rating?
+
+4\. How does average purchase amount compare between Standard and Express shipping?
+
+5\. Which five products have the highest percentage of discounted purchases?
+
+6\. How can customers be segmented into New, Returning, and Loyal groups based on previous purchases?
+
+**### SQL concepts demonstrated**
+
+\- \`SELECT\`
+
+\- \`WHERE\`
+
+\- \`GROUP BY\`
+
+\- \`ORDER BY\`
+
+\- Aggregate functions
+
+\- \`CASE\`
+
+\- Subqueries
+
+\- \`CTE\`
+
+\- \`ROUND\`
+
+\- \`LIMIT\`
 
 The SQL queries are available in:
 
-```text
+\`\`\`text
+
 customer_behavior_sql_queries.sql
-```
 
----
+\`\`\`
 
-# 5. Key Analysis Results
+\---
+
+**# 5. Key Analysis Results**
 
 The analysis produced several useful business findings.
 
-### Revenue
+**### Revenue**
 
-- **Total Revenue:** $233,081
-- **Average Purchase Amount:** $59.76
-- **Average Review Rating:** 3.75
+\- **\*\*Total Revenue:\*\*** $233,081
 
-### Revenue by Gender
+\- **\*\*Average Purchase Amount:\*\*** $59.76
 
-| Gender | Revenue |
-|---|---:|
-| Male | $157,890 |
-| Female | $75,191 |
+\- **\*\*Average Review Rating:\*\*** 3.75
 
-### Revenue by Age Group
+**### Revenue by Gender**
 
-| Age Group | Revenue |
-|---|---:|
-| Young Adult | $62,143 |
-| Middle Aged | $59,197 |
-| Adult | $55,978 |
-| Senior | $55,763 |
+\| Gender | Revenue |
 
-### Customer Segmentation
+\|---|---:|
 
-| Segment | Customers |
-|---|---:|
-| Loyal | 3,116 |
-| Returning | 701 |
-| New | 83 |
+\| Male | $157,890 |
 
-### Top Products by Average Rating
+\| Female | $75,191 |
 
-| Product | Average Rating |
-|---|---:|
-| Gloves | 3.86 |
-| Sandals | 3.84 |
-| Boots | 3.82 |
-| Hat | 3.80 |
-| Handbag | 3.78 |
+**### Revenue by Age Group**
 
-### Highest Discount-Dependent Products
+\| Age Group | Revenue |
 
-| Product | Discounted Purchases |
-|---|---:|
-| Hat | 50.00% |
-| Sneakers | 49.66% |
-| Coat | 49.07% |
-| Sweater | 48.17% |
-| Pants | 47.37% |
+\|---|---:|
 
----
+\| Young Adult | $62,143 |
 
-# 6. Power BI Dashboard
+\| Middle Aged | $59,197 |
 
-The cleaned dataset and business analysis were presented through an interactive **Power BI dashboard**.
+\| Adult | $55,978 |
 
-**Dashboard file:**
+\| Senior | $55,763 |
 
-```text
+**### Customer Segmentation**
+
+\| Segment | Customers |
+
+\|---|---:|
+
+\| Loyal | 3,116 |
+
+\| Returning | 701 |
+
+\| New | 83 |
+
+**### Top Products by Average Rating**
+
+\| Product | Average Rating |
+
+\|---|---:|
+
+\| Gloves | 3.86 |
+
+\| Sandals | 3.84 |
+
+\| Boots | 3.82 |
+
+\| Hat | 3.80 |
+
+\| Handbag | 3.78 |
+
+**### Highest Discount-Dependent Products**
+
+\| Product | Discounted Purchases |
+
+\|---|---:|
+
+\| Hat | 50.00% |
+
+\| Sneakers | 49.66% |
+
+\| Coat | 49.07% |
+
+\| Sweater | 48.17% |
+
+\| Pants | 47.37% |
+
+\---
+
+**# 6. Power BI Dashboard**
+
+The cleaned dataset and business analysis were presented through an interactive **\*\*Power BI dashboard\*\***.
+
+**\*\*Dashboard file:\*\***
+
+\`\`\`text
+
 customer_behavior_dashboard.pbix
-```
-### Dashboard Preview
 
-![Customer Behaviour Dashboard](dashboard.png)
+\`\`\`
 
-### Dashboard KPIs
+**### Dashboard Preview**
 
-- Number of Customers: **3.9K**
-- Average Review Rating: **3.75**
-- Average Purchase Amount: **$59.76**
-- Total Revenue: **$233.08K**
+![Customer Behaviour Dashboard]\(dashboard.png)
 
-### Dashboard Analysis
+**### Dashboard KPIs**
+
+\- Number of Customers: **\*\*3.9K\*\***
+
+\- Average Review Rating: **\*\*3.75\*\***
+
+\- Average Purchase Amount: **\*\*$59.76\*\***
+
+\- Total Revenue: **\*\*$233.08K\*\***
+
+**### Dashboard Analysis**
 
 The dashboard provides views for:
 
-- Revenue by gender
-- Revenue by category
-- Revenue by age group
-- Customer count by subscription status
-- Category performance
-- Customer segmentation
-- Interactive filtering by customer and shopping attributes
+\- Revenue by gender
+
+\- Revenue by category
+
+\- Revenue by age group
+
+\- Customer count by subscription status
+
+\- Category performance
+
+\- Customer segmentation
+
+\- Interactive filtering by customer and shopping attributes
 
 The dashboard is designed to move from a high-level overview into customer, product, subscription, discount, and revenue analysis.
 
----
+\---
 
-# 7. Business Insights
+**# 7. Business Insights**
 
 The analysis highlights five major commercial areas:
 
-### 1. Customer & Revenue
+**### 1. Customer & Revenue**
 
 Revenue was compared across gender and age groups to understand customer contribution.
 
-### 2. Product Performance
+**### 2. Product Performance**
 
 Top-rated products and the most purchased products within categories were identified.
 
-### 3. Discounts
+**### 3. Discounts**
 
 Products with a high percentage of discounted purchases were identified to understand discount dependency.
 
-### 4. Subscriptions & Loyalty
+**### 4. Subscriptions & Loyalty**
 
 Customers were segmented into New, Returning, and Loyal groups, while subscription behaviour was compared across customer groups.
 
-### 5. Shipping Behaviour
+**### 5. Shipping Behaviour**
 
 Average purchase amounts were compared across shipping types, including Standard and Express shipping.
 
----
+\---
 
-# 8. Business Recommendations
+**# 8. Business Recommendations**
 
 Based on the analysis:
 
-- **Boost subscriptions:** Promote exclusive benefits for subscribers.
-- **Build customer loyalty:** Reward repeat buyers and encourage movement into the Loyal segment.
-- **Review discount strategy:** Balance promotional sales with margin control.
-- **Improve product positioning:** Highlight highly rated and frequently purchased products.
-- **Use targeted marketing:** Focus campaigns on high-revenue customer groups and relevant shipping segments.
+\- **\*\*Boost subscriptions:\*\*** Promote exclusive benefits for subscribers.
 
----
+\- **\*\*Build customer loyalty:\*\*** Reward repeat buyers and encourage movement into the Loyal segment.
 
-# 9. Analytical Report
+\- **\*\*Review discount strategy:\*\*** Balance promotional sales with margin control.
+
+\- **\*\*Improve product positioning:\*\*** Highlight highly rated and frequently purchased products.
+
+\- **\*\*Use targeted marketing:\*\*** Focus campaigns on high-revenue customer groups and relevant shipping segments.
+
+\---
+
+**# 9. Analytical Report**
 
 A detailed report documents the project methodology and findings.
 
-**Report file:**
+**\*\*Report file:\*\***
 
-```text
+\`\`\`text
+
 Customer Shopping Behaviour Analysis.docx
-```
+
+\`\`\`
 
 The report covers:
 
-- Project overview
-- Dataset summary
-- Python EDA
-- Data cleaning
-- Feature engineering
-- SQL business analysis
-- Power BI dashboard
-- Business recommendations
+\- Project overview
 
----
+\- Dataset summary
 
-# 10. Presentation
+\- Python EDA
+
+\- Data cleaning
+
+\- Feature engineering
+
+\- SQL business analysis
+
+\- Power BI dashboard
+
+\- Business recommendations
+
+\---
+
+**# 10. Presentation**
 
 A presentation was created to communicate the project as a business story.
 
-**Presentation file:**
+**\*\*Presentation file:\*\***
 
-```text
+\`\`\`text
+
 Customer-shopping-behaviour-analysis.pptx
-```
+
+\`\`\`
 
 The presentation follows a decision-oriented structure:
 
-```text
+\`\`\`text
+
 Opportunity
-   ↓
+
+   ↓
+
 Data Foundation
-   ↓
+
+   ↓
+
 Commercial Analysis
-   ↓
+
+   ↓
+
 Revenue & Targeting
-   ↓
+
+   ↓
+
 Retention
-   ↓
+
+   ↓
+
 Product Signals
-   ↓
+
+   ↓
+
 Power BI Dashboard
-   ↓
+
+   ↓
+
 Business Actions
-```
+
+\`\`\`
 
 The presentation emphasizes five commercial lenses:
 
-- Who spends
-- What products perform
-- What converts
-- What affects discount behaviour
-- What customers value
+\- Who spends
+
+\- What products perform
+
+\- What converts
+
+\- What affects discount behaviour
+
+\- What customers value
+
+\---
+
+**# Project Files
+
+| File | Description |
+|---|---|
+| 📓 [Python Notebook](cust_shopping_behavior.ipynb) | EDA, data cleaning, feature engineering, and MySQL integration |
+| 🗄️ [SQL Queries](customer_behavior_sql_queries.sql) | MySQL business analysis queries |
+| 📊 [Power BI Dashboard](customer_behavior_dashboard.pbix) | Interactive Power BI dashboard |
+| 📂 [Dataset](customer_shopping_behavior.csv) | Customer shopping behaviour dataset |
+| 📄 [Analytical Report](Customer%20Shopping%20Behaviour%20Analysis.docx) | Detailed project report |
+| 🎤 [Project Presentation](Customer-shopping-behaviour-analysis.pptx) | Project presentation |
+| 🖼️ [Dashboard Screenshot](dashboard.png) | Preview of the Power BI dashboard |
+
+> **Tip:** GitHub can store `.pbix` files, but Power BI dashboards cannot be rendered directly in the browser. The dashboard screenshot above provides an instant preview, while the PBIX link lets recruiters download the source dashboard.
 
 ---
 
-# Project Structure
+# Project Structure**
 
-```text
+\`\`\`text
+
 Customer-Shopping-Behaviour-Analysis/
+
 │
+
 ├── customer_shopping_behavior.csv
+
 │
+
 ├── cust_shopping_behavior.ipynb
+
 │
+
 ├── customer_behavior_sql_queries.sql
+
 │
+
 ├── customer_behavior_dashboard.pbix
+
 │
+
 ├── Customer Shopping Behaviour Analysis.docx
+
 │
+
 ├── Customer-shopping-behaviour-analysis.pptx
+
 │
+
 └── README.md
-```
 
----
+\`\`\`
 
-# How to Run the Project
+\---
 
-## Step 1: Clone the Repository
+**# How to Run the Project**
 
-```bash
-git clone <your-github-repository-url>
+**## Step 1: Clone the Repository**
+
+\`\`\`bash
+
+git clone \<your-github-repository-url>
+
 cd Customer-Shopping-Behaviour-Analysis
-```
 
-## Step 2: Install Python Libraries
+\`\`\`
 
-```bash
+**## Step 2: Install Python Libraries**
+
+\`\`\`bash
+
 pip install pandas numpy matplotlib seaborn sqlalchemy pymysql jupyter
-```
 
-## Step 3: Run the Python Notebook
+\`\`\`
+
+**## Step 3: Run the Python Notebook**
 
 Open:
 
-```text
+\`\`\`text
+
 cust_shopping_behavior.ipynb
-```
+
+\`\`\`
 
 Run the notebook from top to bottom to:
 
-1. Load the CSV
-2. Explore the data
-3. Check missing values
-4. Clean the dataset
-5. Create analytical features
-6. Connect to MySQL
-7. Load the cleaned data into the `customer` table
+1\. Load the CSV
 
-## Step 4: Run SQL Analysis
+2\. Explore the data
+
+3\. Check missing values
+
+4\. Clean the dataset
+
+5\. Create analytical features
+
+6\. Connect to MySQL
+
+7\. Load the cleaned data into the \`customer\` table
+
+**## Step 4: Run SQL Analysis**
 
 Open MySQL Workbench and create the database:
 
-```sql
+\`\`\`sql
+
 CREATE DATABASE customer_behavior;
+
 USE customer_behavior;
-```
+
+\`\`\`
 
 Run:
 
-```text
-customer_behavior_sql_queries.sql
-```
+\`\`\`text
 
-## Step 5: Open Power BI
+customer_behavior_sql_queries.sql
+
+\`\`\`
+
+**## Step 5: Open Power BI**
 
 Open:
 
-```text
+\`\`\`text
+
 customer_behavior_dashboard.pbix
-```
+
+\`\`\`
 
 Refresh the data if required and interact with the dashboard filters.
 
-## Step 6: Review the Report & Presentation
+**## Step 6: Review the Report & Presentation**
 
 Open:
 
-```text
+\`\`\`text
+
 Customer Shopping Behaviour Analysis.docx
-```
+
+\`\`\`
 
 and
 
-```text
+\`\`\`text
+
 Customer-shopping-behaviour-analysis.pptx
-```
+
+\`\`\`
 
 to review the complete findings and presentation.
 
----
+\---
 
-# Skills Demonstrated
+**# Skills Demonstrated**
 
-### Data Analytics
+**### Data Analytics**
 
-- Data Cleaning
-- Exploratory Data Analysis
-- Feature Engineering
-- Business Question Development
-- Insight Generation
-- Data Storytelling
+\- Data Cleaning
 
-### Python
+\- Exploratory Data Analysis
 
-- Pandas
-- NumPy
-- Matplotlib
-- Seaborn
-- SQLAlchemy
-- PyMySQL
+\- Feature Engineering
 
-### SQL
+\- Business Question Development
 
-- Aggregations
-- Filtering
-- Grouping
-- Subqueries
-- CASE statements
-- Common Table Expressions (CTEs)
-- Business-oriented SQL queries
+\- Insight Generation
 
-### Power BI
+\- Data Storytelling
 
-- KPI Cards
-- Interactive Visualizations
-- Slicers and Filters
-- Revenue Analysis
-- Customer Segmentation
-- Product Analysis
-- Dashboard Storytelling
+**### Python**
 
----
+\- Pandas
 
-# Conclusion
+\- NumPy
+
+\- Matplotlib
+
+\- Seaborn
+
+\- SQLAlchemy
+
+\- PyMySQL
+
+**### SQL**
+
+\- Aggregations
+
+\- Filtering
+
+\- Grouping
+
+\- Subqueries
+
+\- CASE statements
+
+\- Common Table Expressions (CTEs)
+
+\- Business-oriented SQL queries
+
+**### Power BI**
+
+\- KPI Cards
+
+\- Interactive Visualizations
+
+\- Slicers and Filters
+
+\- Revenue Analysis
+
+\- Customer Segmentation
+
+\- Product Analysis
+
+\- Dashboard Storytelling
+
+\---
+
+**# Conclusion**
 
 This project demonstrates an end-to-end approach to solving a real-world data analytics problem.
 
 The workflow moves from:
 
-**Raw Data → Python → EDA → Cleaning → MySQL → SQL Analysis → Power BI → Report → Presentation**
+**\*\*Raw Data → Python → EDA → Cleaning → MySQL → SQL Analysis → Power BI → Report → Presentation\*\***
 
 The final outcome is a reusable analytics workflow that combines technical data skills with business-focused insight generation.
 
----
+\---
 
-## Author
+**## Author**
 
-**RITESH KUMAR**
+**\*\*RITESH KUMAR\*\***
 
-**Data Analyst | Python | SQL | Power BI | Excel**
+**\*\*Data Analyst | Python | SQL | Power BI | Excel\*\***
 
-GitHub: `https://github.com/Riteshkumarps`
+GitHub: \`\<https\://github.com/Riteshkumarps>\`
 
-LinkedIn: `www.linkedin.com/in/riteshkumarps`
+LinkedIn: \`\<www\.linkedin.com/in/riteshkumarps>\`
